@@ -22,7 +22,7 @@ A clean, simple web app for organizing your weekly Indian grocery shopping. No e
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/iamswetha7/Weekly-Indian-Grocery-Checklist-.git
+   git clone https://github.com/iamswetha7/Weekly-Indian-Grocery-Checklist.git
    ```
 2. Navigate into the folder:
    ```bash
