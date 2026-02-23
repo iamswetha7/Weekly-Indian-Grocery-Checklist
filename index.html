@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Indian Grocery Checklist</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛒 Weekly Indian Grocery Checklist</h1>
+            <p class="subtitle">Organize your weekly grocery shopping with ease</p>
+        </header>
+
+        <!-- Progress Section -->
+        <div class="progress-section">
+            <div class="progress-info">
+                <span class="progress-text">Progress: </span>
+                <span class="progress-count"><span id="checkedCount">0</span>/<span id="totalCount">0</span> items</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- Controls Section -->
+        <div class="controls-section">
+            <div class="add-custom-item">
+                <input 
+                    type="text" 
+                    id="customItemName" 
+                    placeholder="Enter custom item name"
+                    class="input-field"
+                >
+                <select id="categorySelect" class="select-field">
+                    <option value="">Select Category</option>
+                </select>
+                <input 
+                    type="number" 
+                    id="customItemQty" 
+                    placeholder="Qty" 
+                    min="1" 
+                    value="1"
+                    class="qty-input"
+                >
+                <button id="addCustomItemBtn" class="btn btn-add">Add Item</button>
+            </div>
+            <button id="resetBtn" class="btn btn-reset">Reset Checklist</button>
+        </div>
+
+        <!-- Categories and Items Section -->
+        <div class="categories-section" id="categoriesContainer">
+            <!-- Categories will be dynamically populated here -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <p>No groceries yet. Start by adding items!</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
