@@ -18,6 +18,18 @@ A clean, simple web app for organizing your weekly Indian grocery shopping. No e
 - **Reset Weekly** - uncheck all items and track reset timestamp
 - **Auto-Save** - all changes persist using browser storage
 
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/iamswetha7/Weekly-Indian-Grocery-Checklist-.git
+   ```
+2. Navigate into the folder:
+   ```bash
+   cd grocery-checklist
+   ```
+3. Open `index.html` in your browser — no build step or install required.
+
 ## Quick Start
 
 1. Open `index.html` in your browser
