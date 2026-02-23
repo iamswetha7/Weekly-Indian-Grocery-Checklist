@@ -39,7 +39,7 @@ header h1 {
 }
 
 .subtitle {
-    color: #8b7f78;
+    color: #5a5450;
     font-size: 0.9em;
     font-weight: 400;
 }
@@ -48,10 +48,10 @@ header h1 {
 .last-reset-info {
     text-align: center;
     font-size: 0.85em;
-    color: #8b7f78;
+    color: #5a5450;
     margin-bottom: 18px;
     padding: 8px 12px;
-    background: #faf8f5;
+    background: #f0ebe4;
     border-radius: 4px;
 }
 
@@ -135,7 +135,7 @@ header h1 {
     gap: 12px;
     margin-bottom: 22px;
     padding: 12px 16px;
-    background: #faf8f5;
+    background: #f0ebe4;
     border: 1px solid #e8ddd7;
     border-radius: 5px;
 }
@@ -159,7 +159,7 @@ header h1 {
     margin-bottom: 22px;
     flex-wrap: wrap;
     align-items: flex-end;
-    background: #faf8f5;
+    background: #f0ebe4;
     padding: 18px;
     border-radius: 5px;
     border: 1px solid #e8ddd7;
@@ -232,7 +232,7 @@ header h1 {
 
 .btn-add {
     background: #9e8a7e;
-    color: white;
+    color: #2a2420;
     border-color: #9e8a7e;
     padding: 8px 16px;
 }
@@ -258,7 +258,7 @@ header h1 {
 
 .btn-action.active {
     background: #9e8a7e;
-    color: white;
+    color: #2a2420;
     border-color: #9e8a7e;
 }
 
@@ -277,7 +277,7 @@ header h1 {
 
 .btn-delete {
     background: #c9a5a5;
-    color: white;
+    color: #2a2420;
     padding: 5px 10px;
     font-size: 0.75em;
     border-radius: 4px;
@@ -288,6 +288,10 @@ header h1 {
 
 .btn-delete:hover {
     background: #b38f8f;
+}
+
+.btn-delete:active {
+    background: #a07878;
 }
 
 /* Action Buttons Section */
@@ -305,7 +309,7 @@ header h1 {
 /* Shop Mode Status */
 .shop-mode-status {
     background: #f0e6d2;
-    color: #7a6a52;
+    color: #5a5450;
     padding: 10px 14px;
     border-radius: 5px;
     margin-bottom: 15px;
@@ -496,7 +500,7 @@ header h1 {
 .item-notes {
     width: 100%;
     font-size: 0.8em;
-    color: #8b7f78;
+    color: #5a5450;
     font-style: normal;
     margin-top: 4px;
     padding: 4px 0;
@@ -512,7 +516,7 @@ header h1 {
 
 .btn-edit {
     background-color: #a89482;
-    color: white;
+    color: #2a2420;
     padding: 5px 10px;
     font-size: 0.75em;
     border-radius: 4px;
@@ -525,10 +529,6 @@ header h1 {
     background-color: #957a67;
 }
 
-.btn-delete {
-    padding: 5px 10px;
-    font-size: 0.75em;
-}
 
 /* Modal Styles */
 .modal {
@@ -648,7 +648,7 @@ header h1 {
 .empty-state {
     text-align: center;
     padding: 45px 20px;
-    color: #8b7f78;
+    color: #5a5450;
     font-size: 1em;
 }
 

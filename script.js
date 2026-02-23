@@ -76,6 +76,8 @@ const shopModeStatus = document.getElementById('shopModeStatus');
 const itemModal = document.getElementById('itemModal');
 const itemForm = document.getElementById('itemForm');
 const closeModalBtn = document.querySelector('.close');
+const searchInput = document.getElementById('searchInput');
+const lastResetTimeEl = document.getElementById('lastResetTime');
 
 // Initialize the app
 function init() {
@@ -93,7 +95,7 @@ function loadGroceryList() {
     if (savedData) {
         groceryList = JSON.parse(savedData);
     } else {
-        groceryList = JSON.parse(JSON.stringify(groceryData));
+        groceryList = structuredClone(groceryData);
         saveGroceryList();
     }
 }
@@ -174,14 +176,20 @@ function createCategoryElement(category, filteredItems, totalInCategory) {
 
     const headerDiv = document.createElement('div');
     headerDiv.className = 'category-header';
-    headerDiv.innerHTML = `
-        <span>${category}</span>
-        <span class="category-count">${checkedItems}/${filteredItems.length}</span>
-    `;
+    
+    const categorySpan = document.createElement('span');
+    categorySpan.textContent = category;
+    
+    const countSpan = document.createElement('span');
+    countSpan.className = 'category-count';
+    countSpan.textContent = `${checkedItems}/${filteredItems.length}`;
+    
+    headerDiv.appendChild(categorySpan);
+    headerDiv.appendChild(countSpan);
 
     const itemsListDiv = document.createElement('div');
     itemsListDiv.className = 'items-list';
-    itemsListDiv.setAttribute('data-category', category);
+    itemsListDiv.dataset.category = category;
 
     filteredItems.forEach((item) => {
         // Find the actual index in the full list
@@ -200,8 +208,8 @@ function createCategoryElement(category, filteredItems, totalInCategory) {
 function createItemElement(category, actualIndex, item) {
     const itemDiv = document.createElement('div');
     itemDiv.className = `item ${item.checked ? 'checked' : ''}`;
-    itemDiv.setAttribute('data-category', category);
-    itemDiv.setAttribute('data-index', actualIndex);
+    itemDiv.dataset.category = category;
+    itemDiv.dataset.index = actualIndex;
     itemDiv.draggable = true;
 
     const checkbox = document.createElement('input');
@@ -308,13 +316,13 @@ function createItemElement(category, actualIndex, item) {
 let draggedElement = null;
 
 function handleDragStart(e) {
-    draggedElement = this;
-    this.classList.add('dragging');
+    draggedElement = e.currentTarget;
+    e.currentTarget.classList.add('dragging');
     e.dataTransfer.effectAllowed = 'move';
 }
 
 function handleDragEnd(e) {
-    this.classList.remove('dragging');
+    e.currentTarget.classList.remove('dragging');
 }
 
 function handleDragOver(e) {
@@ -347,11 +355,15 @@ function toggleStaple(category, index) {
 
 // Update item quantity
 function updateItemQuantity(category, index, quantity) {
-    const qty = parseInt(quantity);
-    if (qty > 0) {
+    const qty = Number.parseInt(quantity, 10);
+    // Validate quantity is in safe range
+    if (qty > 0 && qty <= 999) {
         groceryList[category][index].quantity = qty;
         saveGroceryList();
         updateProgress();
+    } else {
+        alert('Quantity must be between 1 and 999');
+        renderGroceryList();
     }
 }
 
@@ -394,11 +406,38 @@ function saveItemChanges(e) {
     const { category, index } = currentEditingItem;
     const item = groceryList[category][index];
 
-    item.name = document.getElementById('modalItemName').value;
-    item.quantity = parseInt(document.getElementById('modalItemQty').value) || 1;
-    item.unit = document.getElementById('modalItemUnit').value;
-    item.notes = document.getElementById('modalItemNotes').value;
-    item.priority = document.getElementById('modalItemPriority').value;
+    const newName = document.getElementById('modalItemName').value.trim();
+    const newQty = Number.parseInt(document.getElementById('modalItemQty').value, 10) || 1;
+    const newUnit = document.getElementById('modalItemUnit').value;
+    const newNotes = document.getElementById('modalItemNotes').value.trim();
+    const newPriority = document.getElementById('modalItemPriority').value;
+
+    // Validate inputs
+    if (!newName || newName.length === 0) {
+        alert('Item name cannot be empty');
+        return;
+    }
+    
+    if (newName.length > 100) {
+        alert('Item name is too long (max 100 characters)');
+        return;
+    }
+    
+    if (newQty < 1 || newQty > 999) {
+        alert('Quantity must be between 1 and 999');
+        return;
+    }
+    
+    if (newNotes.length > 200) {
+        alert('Notes are too long (max 200 characters)');
+        return;
+    }
+
+    item.name = newName;
+    item.quantity = newQty;
+    item.unit = newUnit;
+    item.notes = newNotes;
+    item.priority = newPriority;
     item.staple = document.getElementById('modalItemStaple').checked;
 
     saveGroceryList();
@@ -411,16 +450,27 @@ function saveItemChanges(e) {
 function addCustomItem() {
     const itemName = customItemName.value.trim();
     const category = categorySelect.value;
-    const quantity = parseInt(customItemQty.value) || 1;
+    const quantity = Number.parseInt(customItemQty.value, 10) || 1;
     const unit = customItemUnit.value;
 
-    if (!itemName) {
+    // Validate inputs
+    if (!itemName || itemName.length === 0) {
         alert('Please enter an item name');
+        return;
+    }
+    
+    if (itemName.length > 100) {
+        alert('Item name is too long (max 100 characters)');
         return;
     }
 
     if (!category) {
         alert('Please select a category');
+        return;
+    }
+    
+    if (quantity < 1 || quantity > 999) {
+        alert('Quantity must be between 1 and 999');
         return;
     }
 
@@ -476,7 +526,7 @@ function resetChecklist() {
 
 // Print functionality
 function printList() {
-    window.print();
+    globalThis.print();
 }
 
 // Copy unchecked items to clipboard
@@ -543,7 +593,7 @@ function setupEventListeners() {
     itemForm.addEventListener('submit', saveItemChanges);
     closeModalBtn.addEventListener('click', closeModal);
     
-    window.addEventListener('click', (e) => {
+    globalThis.addEventListener('click', (e) => {
         if (e.target === itemModal) {
             closeModal();
         }
