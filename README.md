@@ -24,11 +24,7 @@ A clean, simple web app for organizing your weekly Indian grocery shopping. No e
    ```bash
    git clone https://github.com/iamswetha7/Weekly-Indian-Grocery-Checklist.git
    ```
-2. Navigate into the folder:
-   ```bash
-   cd grocery-checklist
-   ```
-3. Open `index.html` in your browser — no build step or install required.
+2. Open `index.html` in your browser — no build step or install required.
 
 ## Quick Start
 
