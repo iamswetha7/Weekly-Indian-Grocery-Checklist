@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd D:\\\\Learning\\\\Claude-Code\\\\grocery-checklist:*)"
+    ]
+  }
+}

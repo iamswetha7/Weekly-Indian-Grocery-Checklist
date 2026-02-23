@@ -13,6 +13,21 @@
             <p class="subtitle">Organize your weekly grocery shopping with ease</p>
         </header>
 
+        <!-- Last Reset Info -->
+        <div class="last-reset-info">
+            <span>Last reset: <strong id="lastResetTime">Today</strong></span>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="🔍 Search items by name..."
+                class="search-field"
+            >
+        </div>
+
         <!-- Progress Section -->
         <div class="progress-section">
             <div class="progress-info">
@@ -23,6 +38,7 @@
                 <div class="progress-fill" id="progressFill"></div>
             </div>
         </div>
+
 
         <!-- Controls Section -->
         <div class="controls-section">
@@ -44,9 +60,28 @@
                     value="1"
                     class="qty-input"
                 >
+                <select id="customItemUnit" class="select-field">
+                    <option value="pcs">pcs</option>
+                    <option value="kg">kg</option>
+                    <option value="g">g</option>
+                    <option value="L">L</option>
+                    <option value="ml">ml</option>
+                </select>
                 <button id="addCustomItemBtn" class="btn btn-add">Add Item</button>
             </div>
-            <button id="resetBtn" class="btn btn-reset">Reset Checklist</button>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button id="shopModeBtn" class="btn btn-action">🛍 Shop Mode</button>
+            <button id="printBtn" class="btn btn-action">🖨 Print</button>
+            <button id="copyBtn" class="btn btn-action">📋 Copy List</button>
+            <button id="resetBtn" class="btn btn-reset">Reset Weekly</button>
+        </div>
+
+        <!-- Shop Mode Status -->
+        <div class="shop-mode-status" id="shopModeStatus" style="display: none;">
+            Active: Only showing items to buy
         </div>
 
         <!-- Categories and Items Section -->
@@ -57,6 +92,50 @@
         <!-- Empty State -->
         <div class="empty-state" id="emptyState" style="display: none;">
             <p>No groceries yet. Start by adding items!</p>
+        </div>
+
+        <!-- Item Details Modal -->
+        <div class="modal" id="itemModal" style="display: none;">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Edit Item</h2>
+                <form id="itemForm">
+                    <div class="form-group">
+                        <label>Item Name:</label>
+                        <input type="text" id="modalItemName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity:</label>
+                        <div class="qty-unit-group">
+                            <input type="number" id="modalItemQty" class="form-control" min="1" required>
+                            <select id="modalItemUnit" class="form-control">
+                                <option value="pcs">pcs</option>
+                                <option value="kg">kg</option>
+                                <option value="g">g</option>
+                                <option value="L">L</option>
+                                <option value="ml">ml</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Notes:</label>
+                        <textarea id="modalItemNotes" class="form-control" placeholder="e.g., buy from Apna Bazar, organic only"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Priority:</label>
+                        <select id="modalItemPriority" class="form-control">
+                            <option value="normal">Normal</option>
+                            <option value="urgent">Need Urgently</option>
+                            <option value="wait">Can Wait</option>
+                        </select>
+                    </div>
+                    <div class="form-group checkbox">
+                        <input type="checkbox" id="modalItemStaple">
+                        <label>Mark as Staple (commonly forgotten)</label>
+                    </div>
+                    <button type="submit" class="btn btn-add">Save Changes</button>
+                </form>
+            </div>
         </div>
     </div>
 
